@@ -3,12 +3,15 @@ import os
 
 TASK_FILE = ".tasks.txt"
 
+#Adding a new task to the end of the to-do list
 def add_task(task):
     """Function: add_task
     
     Input - a task to add to the list
     Return - nothing
     """
+    with open(TASK_FILE, "a", encoding="utf-8") as file:
+      file.write(task + "\n")
 
 def list_tasks():
     
@@ -29,6 +32,9 @@ def list_tasks():
 
 
 def remove_task(index):
+    with open(TASK_FILE, "r", encoding="utf-8") as file:
+        tasks = file.readlines()
+
     return
 
 def main():
