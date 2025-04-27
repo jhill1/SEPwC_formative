@@ -4,16 +4,14 @@ import os
 TASK_FILE = ".tasks.txt"
 
 #Adding a new task to the end of the to-do list
-def add_task(task):
-    """Function: add_task
-    
-    Input - a task to add to the list
-    Return - nothing
-    """
-    with open(TASK_FILE, "a", encoding="utf-8") as file:
-      file.write(task + "\n")
 
-                 
+
+def add_task(task):
+    with open(TASK_FILE, "a", encoding="utf-8") as file:
+       
+
+
+#Listing all tasks within task file                
 def list_tasks():
     
     with open(TASK_FILE, "r", encoding="utf-8") as file:
@@ -32,10 +30,27 @@ def list_tasks():
 
 
 def remove_task(index):
-    with open(TASK_FILE, "w", encoding="utf-8") as file:
-        tasks = file.readlines()
+    """Function: remove_task
 
-    return
+   Input - a task to add to the list
+   Return - nothing
+   """
+    with open(TASK_FILE, 'r', encoding='utf-8') as file:
+       lines = file.readlines()
+       
+       if 1 <= index <= len(lines):
+           lines.pop(index - 1)
+           
+    with open(TASK_FILE, 'w', encoding='utf-8') as file:
+        file.writelines(lines)
+    
+    print ('Task removed.')
+    else:
+    print('Invalid task number.')
+ 
+    return  
+
+
 
 def main():
     parser = argparse.ArgumentParser(description="Command-line Todo List")
