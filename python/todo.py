@@ -5,11 +5,13 @@ TASK_FILE = ".tasks.txt"
 
 
 def add_task(task):
+    #Open the file in append mode to add a new task to the end of the exisitng list
     with open(TASK_FILE, "a", encoding="utf-8") as file:
+        #Write the task followed by a newline character so the task appears on a new line
         file.write(task +"\n")
         
 
-#Listing all tasks within task file                
+#Listing all tasks within the task file                
 def list_tasks():
     
     with open(TASK_FILE, "r", encoding="utf-8") as file:
@@ -36,11 +38,12 @@ def remove_task(index):
    #Read all lines within the task file 
    with open(TASK_FILE, 'r', encoding='utf-8') as file:
        lines = file.readlines()
+       
        #Check that the line to remove is valid
        if 1 <= index <= len(lines):
            lines.pop(index - 1)
            
-    #Update the list and add it back to the file       
+    #Update the list and add it back to the original file       
     with open(TASK_FILE, 'w', encoding='utf-8') as file:
         file.writelines(lines)
     
