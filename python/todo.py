@@ -35,8 +35,8 @@ def remove_task(index):
    Input - a task to add to the list
    Return - nothing
    """
-   #Read all lines within the task file 
-   with open(TASK_FILE, 'r', encoding='utf-8') as file:
+       #Read all lines within the task file 
+with open(TASK_FILE, 'r', encoding='utf-8') as file:
        lines = file.readlines()
        
        #Check that the line to remove is valid
@@ -44,13 +44,13 @@ def remove_task(index):
            lines.pop(index - 1)
            
     #Update the list and add it back to the original file       
-    with open(TASK_FILE, 'w', encoding='utf-8') as file:
+with open(TASK_FILE, 'w', encoding='utf-8') as file:
         file.writelines(lines)
     
     
-    print ('Task removed.')
-    else:
-    print('Invalid task number.')
+        print ('Task removed.')
+        else:
+        print('Invalid task number.')
  
     return  
 
@@ -81,7 +81,10 @@ def main():
         tasks = list_tasks()
         print(tasks)
     elif args.remove:
-        remove_task(int(args.remove))
+        try: remove_task(int(args.remove))
+        #Code from Gemini
+        except ValueError:
+            print("Error: Please provide a number for the task index to remove.")
     else:
         parser.print_help()
 
