@@ -35,14 +35,17 @@ def remove_task(index):
    Input - a task to add to the list
    Return - nothing
    """
-    with open(TASK_FILE, 'r', encoding='utf-8') as file:
+   #Read all lines within the task file 
+   with open(TASK_FILE, 'r', encoding='utf-8') as file:
        lines = file.readlines()
-       
+       #Check that the line to remove is valid
        if 1 <= index <= len(lines):
            lines.pop(index - 1)
            
+    #Update the list and add it back to the file       
     with open(TASK_FILE, 'w', encoding='utf-8') as file:
         file.writelines(lines)
+    
     
     print ('Task removed.')
     else:
