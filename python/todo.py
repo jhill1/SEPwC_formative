@@ -13,6 +13,7 @@ def add_task(task):
     with open(TASK_FILE, "a", encoding="utf-8") as file:
       file.write(task + "\n")
 
+                 
 def list_tasks():
     
     with open(TASK_FILE, "r", encoding="utf-8") as file:
@@ -20,19 +21,18 @@ def list_tasks():
         counter = 1
         output_string = ""
         for task in tasks:
-            output_string = output_string + str(counter) + ". " + task
+            output_string = output_string + str(counter) + ". " +task
             counter = counter + 1
             #Code from Gemini
             my_string = '1. Item 1\n2. Item 2\n3. Item 3\n4. Item 4\n5. Item 5\n'
             modified_string = my_string[:-1]
             print(modified_string)
             
-   
-    return output_string
+    return modified_string
 
 
 def remove_task(index):
-    with open(TASK_FILE, "r", encoding="utf-8") as file:
+    with open(TASK_FILE, "w", encoding="utf-8") as file:
         tasks = file.readlines()
 
     return
