@@ -5,6 +5,8 @@ suppressPackageStartupMessages({
 
 TASK_FILE <- ".tasks.txt" # nolint
 
+
+
 add_task <- function(task) {
 
 }
