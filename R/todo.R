@@ -17,6 +17,10 @@ remove_task <- function(index) {
 
 }
 
+loadFile <- function(TASK_FILE) {
+
+}
+
 main <- function(args) {
 
   if (!is.null(args$add)) {
