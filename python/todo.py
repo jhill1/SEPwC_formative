@@ -8,10 +8,29 @@ def add_task(task):
     
     Input - a task to add to the list
     Return - nothing
-    """
+    """ 
+    with open(TASK_FILE, "a") as file:
+        file.write(task + "\n")
+        
+        
+        
+        #if i am on my branch this should be here 
 
+    return    
+    
+      
+    
 def list_tasks():
-    return
+    
+    with open (TASK_FILE, "r") as file:
+        tasks = file.readlines()
+        counter = 1
+        output_string = ""
+        for task in tasks:
+            output_string = output_string + str(counter)+". "+task
+            counter = counter + 1
+            
+    return output_string.rstrip('\n')
 
 
 def remove_task(index):
