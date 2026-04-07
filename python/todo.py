@@ -1,23 +1,60 @@
+"""Todo.py is a simple GUI based to do list where you can add tasks
+and remove tasks and list them"""
+
 import argparse
-import os
 
 TASK_FILE = ".tasks.txt"
 
 def add_task(task):
     """Function: add_task
-    
-    Input - a task to add to the list
-    Return - nothing
-    """
+Input - a task to add to the list
+Return - nothing"""
+
+    with open(TASK_FILE, "a", encoding="utf-8") as file:
+        file.write(task + "\n")
 
 def list_tasks():
-    return
+    """Function: list_tasks
+Imput -l
+output shows a list of the items in list"""
+
+    with open (TASK_FILE,"r", encoding="utf-8") as file:
+        tasks = file.readlines()
+        counter = 1
+        output_string = ""
+        for task in tasks:
+            output_string = output_string + str(counter)+". "+task
+            counter=counter+1
+
+    return output_string.rstrip('\n')
 
 
 def remove_task(index):
-    return
+    """function: remove_task,
+Imput -r index to remove a task
+Return Removed.."""
+
+    try:
+        with open(TASK_FILE, "r", encoding="utf-8") as file:
+            lines = file.readlines() #TASK_FILE is read :)
+
+        if 0 < index <= len(lines):
+            removed = lines.pop(index - 1) #removes lines according to index
+
+            with open(TASK_FILE, "w", encoding="utf-8") as file: #w overwrites
+                file.writelines(lines)
+
+            print(f"Removed: {removed.strip()}")
+        else:
+            print("sorry, there is no task to remove")
+
+    except FileNotFoundError:
+        print("Error, no tasks found. Create one!!")
 
 def main():
+    """parser allowing command line arguments,
+imput -a (add),-l (list),-r (remove)
+output allows user to interact witht the code"""
     parser = argparse.ArgumentParser(description="Command-line Todo List")
     parser.add_argument(
             "-a",
