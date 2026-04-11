@@ -1,3 +1,7 @@
+"""
+this module handles the logic for a To-Do list application.
+"""
+
 import argparse
 import os
 
@@ -9,15 +13,44 @@ def add_task(task):
     Input - a task to add to the list
     Return - nothing
     """
+    with open(TASK_FILE, "a", encoding="utf-8") as file:
+        file.write(task + "\n")
 
 def list_tasks():
-    return
-
+    """Function: list_task
+    
+    Input - a task to add to the list
+    Return - a stirng to the list
+    """
+    with open(TASK_FILE, "r", encoding="utf-8") as file:
+        tasks = file.readlines()
+    numbered_tasks = []
+    for i, task in enumerate(tasks, start=1):
+        formatted_line = f"{i}. {task.strip()}"
+        numbered_tasks.append(formatted_line)
+    return "\n".join(numbered_tasks)
 
 def remove_task(index):
-    return
+    """Function: remove_task
+    
+    Input - a task to remove the list
+    Return - nothing 
+    """
+    if os.path.exists(TASK_FILE):
+        with open(TASK_FILE, "r", encoding="utf-8") as file:
+            tasks = file.readlines()
+        if index < 1 or index > len(tasks):
+            return
+        tasks.pop(index - 1)
+        with open(TASK_FILE, "w", encoding="utf-8") as file:
+            file.writelines(tasks)
 
 def main():
+    """Function:main
+    
+    Input - nothing
+    Return - nothing
+    """
     parser = argparse.ArgumentParser(description="Command-line Todo List")
     parser.add_argument(
             "-a",
