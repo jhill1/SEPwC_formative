@@ -1,51 +1,67 @@
-import argparse
-import os
 
-TASK_FILE = ".tasks.txt"
+#3 commands for user: list add and remove
 
-def add_task(task):
-    """Function: add_task
-    
-    Input - a task to add to the list
-    Return - nothing
-    """
+#allows users to add text to a file called todo.txt
+def add_task(task_name):
+    with open ("todo.txt", "a") as file:
+        file.write(task_name + "\n")
+    print (f"Task '{task_name}' added successfully!")
 
+
+#allows users to remove a task from the todo.txt file
+def remove_task(task_name):
+    with open("todo.txt", "r") as file:
+        tasks = file.readlines()
+
+    with open("todo.txt", "w") as file:
+        for task in tasks:
+            if task.strip() != task_name:
+                file.write(task)
+
+    print(f"Task '{task_name}' removed successfully!")
+
+
+#lists all tasks in the todo.txt file
 def list_tasks():
-    return
+    with open("todo.txt", "r") as file:
+        tasks = file.readlines()
 
-
-def remove_task(index):
-    return
-
-def main():
-    parser = argparse.ArgumentParser(description="Command-line Todo List")
-    parser.add_argument(
-            "-a",
-            "--add",
-            help="Add a new task"
-            )
-    parser.add_argument(
-            "-l",
-            "--list",
-            action="store_true",
-            help="List all tasks")
-    parser.add_argument(
-            "-r",
-            "--remove",
-            help="Remove a task by index")
-
-    args = parser.parse_args()
-
-    if args.add:
-        add_task(args.add)
-    elif args.list:
-        tasks = list_tasks()
-        print(tasks)
-    elif args.remove:
-        remove_task(int(args.remove))
+    if tasks:
+        print("Your To-Do List:")
+        for task in tasks:
+            print("- " + task.strip())
     else:
-        parser.print_help()
+        print("Your To-Do List is empty.")
 
 
-if __name__ == "__main__":
-    main()
+#begins with options for the user to choose from
+print("Welcome to your To-Do List Manager!")
+options = '''
+Please choose an option:
+1. Add a task
+2. Remove a task
+3. List all tasks
+4. Exit
+'''
+
+while True:
+    print(options)
+    choice = input("Enter the number of your choice: ")
+
+    if choice == "1":
+        new_task = input("What do you need to do? ")
+        add_task(new_task)
+
+    elif choice == "2":
+        task_to_remove = input("Which task do you want to remove? ")
+        remove_task(task_to_remove)
+
+    elif choice == "3":
+        list_tasks()
+
+    elif choice == "4":
+        print("Goodbye!")
+        break
+
+    else:
+        print("Invalid choice. Please enter a number from 1 to 4.")
