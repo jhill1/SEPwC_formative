@@ -1,5 +1,6 @@
 
-#3 commands for user: list add and remove
+import argparse
+import os
 
 #allows users to add text to a file called todo.txt
 def add_task(task_name):
@@ -35,25 +36,26 @@ def list_tasks():
 
 
 
+def main():
+    #sets command-line arguments
+    parser = argparse.ArgumentParser(description="Simple To-Do List Application")
 
-while True:
-    print(options)
-    choice = input("Enter the number of your choice: ")
+#
+    parser.add_argument("-a", "--add", help="Add a new task to the to-do list")
+    parser.add_argument("-r", "--remove", help="Remove a task from the to-do list")
+    parser.add_argument("-l", "--list", action="store_true", help="List all tasks in the to-do list")
 
-    if choice == "1":
-        new_task = input("What do you need to do? ")
-        add_task(new_task)
+    args = parser.parse_args()
 
-    elif choice == "2":
-        task_to_remove = input("Which task do you want to remove? ")
-        remove_task(task_to_remove)
-
-    elif choice == "3":
+   #logic to determine which action to take based on the user's input
+    if args.add:
+        add_task(args.add)
+    elif args.remove:
+        remove_task(args.remove)
+    elif args.list:
         list_tasks()
-
-    elif choice == "4":
-        print("Goodbye!")
-        break
-
     else:
-        print("Invalid choice. Please enter a number from 1 to 4.")
+        parser.print_help()
+
+if __name__ == "__main__":
+    main()
