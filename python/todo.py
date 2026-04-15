@@ -34,15 +34,7 @@ def list_tasks():
         print("Your To-Do List is empty.")
 
 
-#begins with options for the user to choose from
-print("Welcome to your To-Do List Manager!")
-options = '''
-Please choose an option:
-1. Add a task
-2. Remove a task
-3. List all tasks
-4. Exit
-'''
+
 
 while True:
     print(options)
