@@ -1,21 +1,42 @@
+"""A simple command-line todo list manager."""
 import argparse
 import os
 
 TASK_FILE = ".tasks.txt"
 
 def add_task(task):
-    """Function: add_task
+    """Add a task to the todo list."""
+    with open(TASK_FILE, "a", encoding="utf-8") as file:
+        file.write(task+"\n")
+        
     
-    Input - a task to add to the list
-    Return - nothing
-    """
+    
 
 def list_tasks():
-    return
+    """List all tasks to user"""
+    with open(TASK_FILE, "r", encoding="utf-8") as file:
+        tasks = file.readlines()
+    
+    output_string = ""
+    for i, task in enumerate(tasks, start=1):
+        output_string += f"{i}. {task.strip()}\n"
+        
+    return output_string.rstrip("\n")
 
 
 def remove_task(index):
-    return
+    """Remove a task from the todo list by index."""
+    with open(TASK_FILE, "r", encoding="utf-8") as file:
+        tasks = file.readlines()
+    if len(tasks) == 0:
+        print("This list is empty!")
+        return
+    if index < 1 or index > len(tasks):
+        print("Invalid task number!")
+        return
+    tasks.pop(index - 1)
+    with open(TASK_FILE, "w", encoding="utf-8") as file:
+        file.writelines(tasks)
 
 def main():
     parser = argparse.ArgumentParser(description="Command-line Todo List")
