@@ -2,45 +2,60 @@
 import argparse
 import os
 
+#all functions read from here
+TASK_FILE = "todo.txt"
+
 #allows users to add text to a file called todo.txt
 def add_task(task_name):
-    with open ("todo.txt", "a") as file:
+    """Function: add_task"""
+    with open (TASK_FILE, "a", encoding="utf-8") as file:
         file.write(task_name + "\n")
     print (f"Task '{task_name}' added successfully!")
 
 
 #allows users to remove a task from the todo.txt file
-def remove_task(task_name):
-    with open("todo.txt", "r") as file:
+def remove_task(task_index):
+    """Function: remove_task"""
+    if not os.path.exists(TASK_FILE):
+        print("No tasks found.")
+        return
+    
+    with open(TASK_FILE, "r", encoding="utf-8") as file:
         tasks = file.readlines()
 
-    with open("todo.txt", "w") as file:
-        for task in tasks:
-            if task.strip() != task_name:
-                file.write(task)
+    if task_idex < 1 or task_index > len(tasks):
+        print("Invalid task index.")
+        return
+    
+    del tasks[task_index - 1]
 
-    print(f"Task '{task_name}' removed successfully!")
+    with open(TASK_FILE, "w", encoding="utf-8") as file:
+        file.writelines(tasks)
+    print("Task removed successfully!")
 
 
 #lists all tasks in the todo.txt file
 def list_tasks():
-    with open("todo.txt", "r") as file:
-        tasks = file.readlines()
+    """Function: list_tasks"""
+    if not os.path.exists(TASK_FILE):
+        print("No tasks found.")
+        return
+    
+    with open(TASK_FILE, "r", encoding="utf-8") as file:
+        tasks = [line.strip() for line in file if line.strip()]
+    
+    if not tasks:
+        print("No tasks found.")
+        return ""
+    
+    return "\n".join(f"{i + 1}. {task}" for i, task in enumerate (tasks))
 
-    if tasks:
-        print("Your To-Do List:")
-        for task in tasks:
-            print("- " + task.strip())
-    else:
-        print("Your To-Do List is empty.")
 
 
 
 def main():
     #sets command-line arguments
-    parser = argparse.ArgumentParser(description="Simple To-Do List Application")
-
-#
+    parser = argparse.ArgumentParser(description="To-Do List Application")
     parser.add_argument("-a", "--add", help="Add a new task to the to-do list")
     parser.add_argument("-r", "--remove", help="Remove a task from the to-do list")
     parser.add_argument("-l", "--list", action="store_true", help="List all tasks in the to-do list")
