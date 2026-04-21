@@ -23,7 +23,7 @@ def remove_task(task_index):
     with open(TASK_FILE, "r", encoding="utf-8") as file:
         tasks = file.readlines()
 
-    if task_idex < 1 or task_index > len(tasks):
+    if task_index < 1 or task_index > len(tasks):
         print("Invalid task index.")
         return
     
