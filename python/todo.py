@@ -10,7 +10,6 @@ def add_task(task_name):
     """Function: add_task"""
     with open (TASK_FILE, "a", encoding="utf-8") as file:
         file.write(task_name + "\n")
-    print (f"Task '{task_name}' added successfully!")
 
 
 #allows users to remove a task from the todo.txt file
@@ -31,7 +30,6 @@ def remove_task(task_index):
 
     with open(TASK_FILE, "w", encoding="utf-8") as file:
         file.writelines(tasks)
-    print("Task removed successfully!")
 
 
 #lists all tasks in the todo.txt file
